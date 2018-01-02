@@ -1,0 +1,8 @@
+// Rename the file to default.json,
+// fill it with real host and path
+{
+    "remote_server": {
+        "host": "https://dspace.example.com",
+        "path": "/rest"
+    }
+}
