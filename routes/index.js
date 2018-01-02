@@ -1,10 +1,24 @@
 var express = require('express');
 var router = express.Router();
 
-//var dspace = require('../src/dspace');
 var dspace = require('@billypilgrim/dspace-rest-js');
 
-var {host, path} = require('config').get('remote_server');
+var host = null;
+var path = '/rest';
+
+try {
+    var remote_server = require('config').get('remote_server');
+    host = remote_server.host || host;
+    path = remote_server.path || path;
+} catch(e) {
+}
+
+host = process.env.REMOTE_HOST || host;
+path = process.env.REMOTE_PATH || path;
+
+if(!host)
+    throw "Remote host missing. Please set REMOTE_HOST environment variable or edit config file.";
+
 var conn = dspace.connect(host, path);
 
 router.get('/', function(req, res, next) {
